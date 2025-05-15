@@ -1,0 +1,192 @@
+﻿@page "/set-reminder"
+@inject NavigationManager Navigation
+@using PillPalApp.Services
+@using PillData.Models
+@inject IMedicationService MedicationService
+@inject IReminderService ReminderService
+
+<PageTitle>Set Reminder</PageTitle>
+
+<ScrollView>
+    <div class="set-reminder-container">
+
+        <h2>Set Reminder</h2>
+
+        @if (isLoading)
+        {
+            <p>Loading...</p>
+        }
+        else if (userMedications == null || !userMedications.Any())
+        {
+            <p class="warning-text">⚠️ You must add at least one medication before setting a reminder.</p>
+            <button class="primary-button" @onclick="GoToAddMedication">➕ Add Medication</button>
+        }
+        else
+        {
+            <!-- Medication Dropdown -->
+            <div class="form-group">
+                <label for="medication-select">Medication</label>
+                <select id="medication-select" @bind="selectedMedicationID">
+                    <option value="0">-- Select Medication --</option>
+                    @foreach (var med in userMedications)
+                    {
+                        <option value="@med.ID">@med.name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Frequency (Days of Week) -->
+            <div class="form-group">
+                <label>Frequency</label>
+                <div class="days-container">
+                    @foreach (var day in DaysOfWeek)
+                    {
+                        <button type="button"
+                                class="day-button @(selectedDays.Contains(day) ? "selected" : "")"
+                                @onclick="() => ToggleDay(day)">
+                            @day
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <!-- Time of Day -->
+            <div class="form-group">
+                <label>Time(s) of Day</label>
+                @for (int i = 0; i < reminderTimes.Count; i++)
+                {
+                    var index = i;
+                    <div class="time-entry">
+                        <input type="time"
+                               value="@reminderTimes[index].ToString("HH\\:mm")"
+                               @onchange="e => UpdateTime(index, e.Value?.ToString())"
+                               class="time-picker" />
+                        <button type="button" @onclick="() => RemoveTime(index)" class="remove-time">🗑️</button>
+                    </div>
+                }
+                <button type="button" class="add-time" @onclick="AddTime">➕ Add Time</button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button type="button" class="cancel-button" @onclick="Cancel">Cancel</button>
+                <button type="button" class="save-button" @onclick="SaveReminder" disabled="@(!CanSave)">Save</button>
+            </div>
+        }
+
+    </div>
+</ScrollView>
+
+@code {
+    [Parameter] public string username { get; set; }
+    [Parameter] public int userID { get; set; }
+
+    private List<MedicationModel> userMedications = new();
+    private int selectedMedicationID = 0; // <-- Make sure this is initialized
+    private bool isLoading = true;
+
+    private List<string> DaysOfWeek = new() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+    private HashSet<string> selectedDays = new();
+    private List<TimeOnly> reminderTimes = new() { new TimeOnly(8, 0) }; // Ensure there's at least one time
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var queryParams = Navigation.Uri.Split('?')[1].Split('&');
+            foreach (var param in queryParams)
+            {
+                var keyValue = param.Split('=');
+                if (keyValue[0] == "username") username = keyValue[1];
+                else if (keyValue[0] == "userID") userID = int.Parse(keyValue[1]);
+            }
+
+            userMedications = await MedicationService.ReadMedByUserID(userID);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error initializing reminder page: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private bool CanSave => selectedMedicationID > 0 && selectedDays.Any() && reminderTimes.Any();
+
+    private void GoToAddMedication()
+    {
+        Navigation.NavigateTo($"/add-medication?username={username}&userID={userID}");
+    }
+
+
+    private void UpdateTime(int index, string newValue)
+    {
+        if (index >= 0 && index < reminderTimes.Count &&
+            TimeOnly.TryParse(newValue, out var parsedTime))
+        {
+            reminderTimes[index] = parsedTime;
+        }
+    }
+
+    private void ToggleDay(string day)
+    {
+        if (selectedDays.Contains(day))
+            selectedDays.Remove(day);
+        else
+            selectedDays.Add(day);
+    }
+
+    private void AddTime()
+    {
+        reminderTimes.Add(new TimeOnly(8, 0)); // Default to 8:00 AM
+    }
+
+    private void RemoveTime(int index)
+    {
+        if (reminderTimes.Count > 1)
+            reminderTimes.RemoveAt(index);
+    }
+
+    private async Task SaveReminder()
+    {
+        bool savedAny = false;
+
+        foreach (var day in selectedDays)
+        {
+            var frequencyDate = NextDateOfWeek(day);
+            foreach (var time in reminderTimes)
+            {
+                bool isAvailable = await ReminderService.ValidateReminder(frequencyDate, time.ToTimeSpan(), selectedMedicationID);
+                if (isAvailable)
+                {
+                    await ReminderService.CreateReminder(frequencyDate, time.ToTimeSpan(), selectedMedicationID, userID);
+                    savedAny = true;
+                }
+            }
+        }
+
+        if (savedAny)
+        {
+            Navigation.NavigateTo($"/home?username={username}&userID={userID}");
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Duplicate Reminders", "All selected reminders already exist for this medication.", "OK");
+        }
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo($"/home?username={username}&userID={userID}");
+    }
+
+    private DateTime NextDateOfWeek(string day)
+    {
+        var today = DateTime.Today;
+        var targetDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day);
+        int daysToAdd = ((int)targetDay - (int)today.DayOfWeek + 7) % 7;
+        return today.AddDays(daysToAdd);
+    }
+}

@@ -1,0 +1,74 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+@using PillPalApp.Services
+@inject IUserService UserService
+
+<ScrollView>
+    <div class="container">
+        <h2>Welcome to</h2>
+        <h1>Pill Pal!</h1>
+        <p class="subtitle">To begin, please log in:</p>
+
+        <InputText @bind-Value="username" placeholder="Username" class="input-box" />
+        <InputText @bind-Value="password" placeholder="Password" type="password" class="input-box" />
+
+        <button class="primary-button" @onclick="SignIn">Sign In</button>
+
+        <div class="divider">
+            <div class="line"></div>
+            <span>OR</span>
+            <div class="line"></div>
+        </div>
+
+        <button class="secondary-button" @onclick="GoToRegister">Create Account</button>
+    </div>
+</ScrollView>
+
+@code {
+    private string username = string.Empty;
+    private string password = string.Empty;
+
+    private async Task SignIn()
+    {
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Please enter both fields.", "OK");
+            return;
+        }
+
+        try
+        {
+            // Validate the user credentials
+            bool valid = await UserService.ValidateUser(username, password);
+            if (valid)
+            {
+                // Fetch the user ID based on the validated username
+                var user = await UserService.ReadUser(username);
+                if (user != null)
+                {
+                    int userID = user.ID; // Use the actual user ID from the database
+
+                    // Navigate to Home page with the username and userID as query parameters
+                    Navigation.NavigateTo($"/home?username={username}&userID={userID}");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "User not found.", "OK");
+                }
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Invalid", "Incorrect username or password.", "Retry");
+            }
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"Login failed: {ex.Message}", "OK");
+        }
+    }
+
+    private void GoToRegister()
+    {
+        Navigation.NavigateTo("/register");
+    }
+}

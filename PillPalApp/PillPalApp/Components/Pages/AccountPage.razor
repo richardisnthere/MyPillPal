@@ -1,0 +1,50 @@
+﻿@page "/account"
+@inject NavigationManager Navigation
+
+<div class="account-container">
+    <!-- Back Button -->
+    <button class="back-button" @onclick="GoBack">← Back</button>
+
+    <h2 style="text-decoration: underline;">Account Settings:</h2>
+
+    <!-- Buttons Section -->
+    <div class="account-options">
+        <button class="primary-button" @onclick="GoToUpdatePassword">Update Password</button>
+        <p class="or-text">OR</p>
+        <button class="primary-button" @onclick="GoToLogout">Log Out</button>
+    </div>
+</div>
+
+@code {
+    private string username;
+    private int userID;
+
+    protected override void OnInitialized()
+    {
+        // Extract query parameters from the URL
+        var queryParams = Navigation.Uri.Split('?')[1].Split('&');
+        foreach (var param in queryParams)
+        {
+            var keyValue = param.Split('=');
+            if (keyValue[0] == "username")
+                username = keyValue[1];
+            else if (keyValue[0] == "userID")
+                userID = int.Parse(keyValue[1]);
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo($"/home?username={username}&userID={userID}");
+    }
+
+    private void GoToUpdatePassword()
+    {
+        Navigation.NavigateTo($"/update-password?username={username}&userID={userID}");
+    }
+
+    private void GoToLogout()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

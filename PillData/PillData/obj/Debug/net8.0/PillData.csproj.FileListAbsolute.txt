@@ -1,0 +1,12 @@
+C:\Users\1090109\source\repos\PillData\PillData\bin\Debug\net8.0\PillData.deps.json
+C:\Users\1090109\source\repos\PillData\PillData\bin\Debug\net8.0\PillData.dll
+C:\Users\1090109\source\repos\PillData\PillData\bin\Debug\net8.0\PillData.pdb
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\PillData.csproj.AssemblyReference.cache
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\PillData.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\PillData.AssemblyInfoInputs.cache
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\PillData.AssemblyInfo.cs
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\PillData.csproj.CoreCompileInputs.cache
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\PillData.dll
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\refint\PillData.dll
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\PillData.pdb
+C:\Users\1090109\source\repos\PillData\PillData\obj\Debug\net8.0\ref\PillData.dll

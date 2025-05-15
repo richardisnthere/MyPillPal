@@ -1,0 +1,49 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\MyPillPal\\PillPalApp\\PillPalApp\\obj\\Debug\\net8.0-android\\scopedcss\\bundle\\PillPalApp.styles.css",
+      "PackagePath": "staticwebassets\\PillPalApp.styles.css"
+    },
+    {
+      "Id": "C:\\MyPillPal\\PillPalApp\\PillPalApp\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\MyPillPal\\PillPalApp\\PillPalApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\MyPillPal\\PillPalApp\\PillPalApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\MyPillPal\\PillPalApp\\PillPalApp\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\MyPillPal\\PillPalApp\\PillPalApp\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\MyPillPal\\PillPalApp\\PillPalApp\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-android\\staticwebassets\\msbuild.PillPalApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-android\\staticwebassets\\msbuild.build.PillPalApp.props",
+      "PackagePath": "build\\PillPalApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-android\\staticwebassets\\msbuild.buildMultiTargeting.PillPalApp.props",
+      "PackagePath": "buildMultiTargeting\\PillPalApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-android\\staticwebassets\\msbuild.buildTransitive.PillPalApp.props",
+      "PackagePath": "buildTransitive\\PillPalApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

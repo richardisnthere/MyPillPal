@@ -1,0 +1,117 @@
+﻿@page "/add-medication"
+@inject NavigationManager Navigation
+@using PillPalApp.Services
+@inject IMedicationService MedicationService
+
+<h2 style="text-decoration: underline;">Add Medication:</h2>
+
+<div class="form-container">
+    <InputText class="input" @bind-Value="name" placeholder="Name" />
+    <div class="inline-row">
+        <InputText class="input-half" @bind-Value="doseText" placeholder="Dose" />
+        <InputText class="input-half" @bind-Value="sizeText" placeholder="Size/Count" />
+    </div>
+
+    <!-- Form Dropdown -->
+    <select class="input" @onchange="OnFormChanged">
+        @foreach (var option in formOptions)
+        {
+            <option value="@option">@option</option>
+        }
+    </select>
+
+    @if (form == "Other")
+    {
+        <InputText class="input" @bind-Value="customForm" placeholder="Enter form type" />
+    }
+
+    <!-- Additional Info -->
+    <InputTextArea class="textarea" @bind-Value="additionalInfo" placeholder="(Optional)" />
+
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <p style="color: @(success ? "green" : "red")">@message</p>
+    }
+
+    <!-- Buttons -->
+    <div class="button-row">
+        <button class="cancel-button" @onclick="GoBack">Cancel</button>
+        <button class="save-button" @onclick="SaveMedication">Save</button>
+    </div>
+</div>
+
+@code {
+    private string name;
+    private string doseText;
+    private string sizeText;
+    private string form = "Tablet";
+    private string customForm;
+    private string additionalInfo;
+    private string message;
+    private bool success;
+
+    private int userID;
+    private string username;
+
+    private readonly List<string> formOptions = new()
+    {
+        "Tablet", "Capsule", "Liquid", "Injection", "Inhaler", "Patch", "Other"
+    };
+
+    protected override void OnInitialized()
+    {
+        var queryParams = Navigation.Uri.Split('?')[1].Split('&');
+        foreach (var param in queryParams)
+        {
+            var keyValue = param.Split('=');
+            if (keyValue[0] == "userID")
+                userID = int.Parse(keyValue[1]);
+            else if (keyValue[0] == "username")
+                username = keyValue[1];
+        }
+    }
+
+    private void OnFormChanged(ChangeEventArgs e)
+    {
+        form = e.Value?.ToString();
+    }
+
+    private async Task SaveMedication()
+    {
+        if (!float.TryParse(doseText, out float dose) || !float.TryParse(sizeText, out float size))
+        {
+            message = "Dose and Size must be numeric.";
+            success = false;
+            return;
+        }
+
+        bool isDuplicate = !(await MedicationService.ValidateMedication(name, userID));
+        if (isDuplicate)
+        {
+            message = "Medication name already exists.";
+            success = false;
+            return;
+        }
+
+        string finalForm = form == "Other" ? customForm : form;
+
+        bool result = await MedicationService.CreateMedication(name, dose, size, finalForm, additionalInfo ?? "", userID);
+        if (result)
+        {
+            message = "Medication saved!";
+            success = true;
+            await Task.Delay(1500);
+            Navigation.NavigateTo($"/home?username={username}&userID={userID}");
+        }
+        else
+        {
+            message = "Failed to save medication.";
+            success = false;
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo($"/home?username={username}&userID={userID}");
+    }
+}

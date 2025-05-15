@@ -1,0 +1,101 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|c:\\users\\1090109\\source\\repos\\pillpalapp\\pillpalapp\\components\\pages\\homepage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|solutionrelative:pillpalapp\\components\\pages\\homepage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|c:\\users\\1090109\\source\\repos\\pillpalapp\\pillpalapp\\components\\pages\\managemedicationpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|solutionrelative:pillpalapp\\components\\pages\\managemedicationpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|c:\\users\\1090109\\source\\repos\\pillpalapp\\pillpalapp\\components\\pages\\addreminderpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|solutionrelative:pillpalapp\\components\\pages\\addreminderpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|c:\\users\\1090109\\source\\repos\\pillpalapp\\pillpalapp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|solutionrelative:pillpalapp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|c:\\users\\1090109\\source\\repos\\pillpalapp\\pillpalapp\\components\\pages\\upcomingreminderpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D129B3C1-CE0C-4667-9677-BA889CC995D9}|PillPalApp\\PillPalApp.csproj|solutionrelative:pillpalapp\\components\\pages\\upcomingreminderpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ManageMedicationPage.razor",
+              "DocumentMoniker": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\ManageMedicationPage.razor",
+              "RelativeDocumentMoniker": "PillPalApp\\Components\\Pages\\ManageMedicationPage.razor",
+              "ToolTip": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\ManageMedicationPage.razor",
+              "RelativeToolTip": "PillPalApp\\Components\\Pages\\ManageMedicationPage.razor",
+              "ViewState": "AQIAAHgAAAAAAAAAAAAwwIwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-15T15:27:55.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddReminderPage.razor",
+              "DocumentMoniker": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\AddReminderPage.razor",
+              "RelativeDocumentMoniker": "PillPalApp\\Components\\Pages\\AddReminderPage.razor",
+              "ToolTip": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\AddReminderPage.razor",
+              "RelativeToolTip": "PillPalApp\\Components\\Pages\\AddReminderPage.razor",
+              "ViewState": "AQIAAF4AAAAAAAAAAAAwwHkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-15T15:20:15.981Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "PillPalApp\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Services\\UserService.cs",
+              "RelativeToolTip": "PillPalApp\\Services\\UserService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEwAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T21:58:57.062Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UpcomingReminderPage.razor",
+              "DocumentMoniker": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\UpcomingReminderPage.razor",
+              "RelativeDocumentMoniker": "PillPalApp\\Components\\Pages\\UpcomingReminderPage.razor",
+              "ToolTip": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\UpcomingReminderPage.razor",
+              "RelativeToolTip": "PillPalApp\\Components\\Pages\\UpcomingReminderPage.razor",
+              "ViewState": "AQIAACQAAAAAAAAAAIBJwAoAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-13T17:52:37.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomePage.razor",
+              "DocumentMoniker": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\HomePage.razor",
+              "RelativeDocumentMoniker": "PillPalApp\\Components\\Pages\\HomePage.razor",
+              "ToolTip": "C:\\Users\\1090109\\source\\repos\\PillPalApp\\PillPalApp\\Components\\Pages\\HomePage.razor",
+              "RelativeToolTip": "PillPalApp\\Components\\Pages\\HomePage.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-08T18:44:26.618Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

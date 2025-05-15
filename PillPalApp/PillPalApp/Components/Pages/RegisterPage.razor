@@ -1,0 +1,58 @@
+﻿@page "/register"
+@inject NavigationManager Navigation
+@using PillPalApp.Services
+@inject IUserService UserService
+
+<ScrollView>
+    <div class="container">
+
+        <button class="back-button" @onclick="GoBack">← Back</button>
+
+        <h2>Create Your Account Below!</h2>
+        <p class="subtitle">
+            <u>Please enter strong<br />and memorable details:</u>
+        </p>
+
+        <InputText @bind-Value="newUsername" placeholder="New Username" class="input-box" />
+        <InputText @bind-Value="newPassword" placeholder="New Password" type="password" class="input-box" />
+
+        <button class="primary-button" @onclick="SignUp">Sign Up</button>
+    </div>
+</ScrollView>
+
+@code {
+    private string newUsername = string.Empty;
+    private string newPassword = string.Empty;
+
+    private async Task SignUp()
+    {
+        if (string.IsNullOrWhiteSpace(newUsername) || string.IsNullOrWhiteSpace(newPassword))
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Please fill in all fields.", "OK");
+            return;
+        }
+
+        try
+        {
+            bool success = await UserService.CreateUser(newUsername, newPassword);
+            if (success)
+            {
+                await Application.Current.MainPage.DisplayAlert("Success", "Account created!", "OK");
+                Navigation.NavigateTo("/");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Username already taken or server issue.", "Retry");
+            }
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"Sign-up failed: {ex.Message}", "OK");
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

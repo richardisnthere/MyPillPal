@@ -1,0 +1,144 @@
+﻿@page "/edit-medication"
+@inject NavigationManager Navigation
+@using PillPalApp.Services
+@using PillData.Models
+@inject IMedicationService MedicationService
+
+<h2 style="text-decoration: underline;">Edit Medication:</h2>
+
+<div class="form-container">
+    <p><strong>Medication Name</strong></p>
+    <InputText class="input" @bind-Value="name" placeholder="Name" />
+
+    <div class="inline-row">
+        <div class="input-half-wrapper">
+            <p><strong>Dose</strong></p>
+            <InputText class="input-half" @bind-Value="doseText" placeholder="Dose" />
+        </div>
+        <div class="input-half-wrapper">
+            <p><strong>Original Size</strong></p>
+            <InputText class="input-half" @bind-Value="sizeText" placeholder="Original Size" />
+        </div>
+    </div>
+
+    <p><strong>Current Supply</strong></p>
+    <InputText class="input" @bind-Value="currentSizeText" placeholder="Current Pills/MLs" />
+
+    <p><strong>Form of Medication</strong></p>
+    <select class="input" @onchange="OnFormChanged">
+        @foreach (var option in formOptions)
+        {
+            <option value="@option">@option</option>
+        }
+    </select>
+
+    @if (form == "Other")
+    {
+        <p><strong>Custom Form</strong></p>
+        <InputText class="input" @bind-Value="customForm" placeholder="Enter form type" />
+    }
+
+    <p><strong>Additional Information</strong></p>
+    <InputTextArea class="textarea" @bind-Value="additionalInfo" placeholder="(Optional)" />
+
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <p style="color: @(success ? "green" : "red")">@message</p>
+    }
+
+    <!-- Buttons -->
+    <div class="button-row">
+        <button class="cancel-button" @onclick="GoBack">Cancel</button>
+        <button class="save-button" @onclick="SaveChanges">Save</button>
+    </div>
+</div>
+
+@code {
+    private int medID;
+    private int userID;
+    private string username;
+
+    private string name;
+    private string doseText;
+    private string sizeText;
+    private string currentSizeText;
+    private string form = "Tablet";
+    private string customForm;
+    private string additionalInfo;
+
+    private string message;
+    private bool success;
+
+    private readonly List<string> formOptions = new()
+    {
+        "Tablet", "Capsule", "Liquid", "Injection", "Inhaler", "Patch", "Other"
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var queryParams = Navigation.Uri.Split('?')[1].Split('&');
+        foreach (var param in queryParams)
+        {
+            var keyValue = param.Split('=');
+            if (keyValue[0] == "medID")
+                medID = int.Parse(keyValue[1]);
+            else if (keyValue[0] == "username")
+                username = keyValue[1];
+            else if (keyValue[0] == "userID")
+                userID = int.Parse(keyValue[1]);
+        }
+
+        var med = await MedicationService.ReadMedicationByID(medID);
+        if (med != null)
+        {
+            name = med.name;
+            doseText = med.dose.ToString();
+            sizeText = med.originalSize.ToString();
+            currentSizeText = med.currentSize.ToString();
+            form = formOptions.Contains(med.form) ? med.form : "Other";
+            customForm = form == "Other" ? med.form : null;
+            additionalInfo = med.addInfo;
+        }
+    }
+
+    private void OnFormChanged(ChangeEventArgs e)
+    {
+        form = e.Value?.ToString();
+    }
+
+    private async Task SaveChanges()
+    {
+        if (!float.TryParse(doseText, out float dose) ||
+            !float.TryParse(sizeText, out float originalSize) ||
+            !float.TryParse(currentSizeText, out float currentSize))
+        {
+            message = "Dose, Original Size, and Current Size must be numeric.";
+            success = false;
+            return;
+        }
+
+        string finalForm = form == "Other" ? customForm : form;
+
+        bool result = await MedicationService.UpdateMedication(
+            medID, name, dose, originalSize, finalForm, additionalInfo ?? "", currentSize
+        );
+
+        if (result)
+        {
+            message = "Medication updated!";
+            success = true;
+            await Task.Delay(1500);
+            Navigation.NavigateTo($"/manage?username={username}&userID={userID}");
+        }
+        else
+        {
+            message = "Failed to update medication.";
+            success = false;
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo($"/manage?username={username}&userID={userID}");
+    }
+}

@@ -1,0 +1,189 @@
+﻿@page "/home"
+@inject NavigationManager Navigation
+@using PillPalApp.Services
+@inject IMedicationService MedicationService
+@inject IReminderService ReminderService
+
+<ScrollView>
+    <div class="home-container">
+        <div class="header">
+            <!-- Account Icon on the left, with "Account" below -->
+            <div class="account-info" @onclick="GoToAccount">
+                <span class="account-icon">👤</span>
+                <p class="account-label">Account</p>
+            </div>
+            
+            <!-- Username aligned to the right -->
+            <div class="username-section">
+                <h2>@username's</h2>
+                <h3>Pill Pal :)</h3>
+            </div>
+        </div>
+
+        <!-- Date Section -->
+        <div class="date-section">
+            <p class="date-text"><strong>Today is @DateTime.Now.ToString("MMMM dd, yyyy"):</strong></p>
+        </div>
+
+        <!-- Reminders for Today -->
+        @if (todayReminders != null && todayReminders.Any())
+        {
+            @foreach (var item in todayReminders)
+            {
+                <div class="reminder-card">
+                    <div class="reminder-left">
+                        <p class="reminder-time">@item.Time.ToString(@"hh\:mm")</p>
+                        <p class="reminder-med">@item.MedicationName</p>
+                        <p class="reminder-dose">Dose: @item.Dose mg</p>
+                    </div>
+                    <input type="checkbox"
+                           checked="@item.Taken"
+                           @onchange="(e) => MarkAsTaken(item, e.Value is bool b && b)" />
+                </div>
+            }
+        }
+        else
+        {
+            <p>
+                <div style="display: flex; justify-content: center; align-items: center; height: 200px; width: 100%;">
+                    <p style="text-align: center;">No reminders for today.</p>
+                </div>
+            </p>
+        }
+
+    </div>
+</ScrollView>
+
+<!-- Check Upcoming Medication Button centered at the bottom -->
+<div class="check-upcoming-btn-container" @onclick="GoToUpcomingMedication">
+    <button class="primary-button">Check Upcoming Medication</button>
+</div>
+
+<!-- Bottom Navigation Bar -->
+<div class="bottom-nav">
+    <button class="nav-btn" @onclick="GoToSetReminder">⏰<br /><small>Set Reminder</small></button>
+    <button class="nav-btn" @onclick="GoToAddMedication">➕<br /><small>Add Medication</small></button>
+    <button class="nav-btn" @onclick="GoToManage">⚙️<br /><small>Manage</small></button>
+</div>
+
+@code {
+    private string username;
+    private int userID;
+
+    private List<TodayReminderDisplay> todayReminders = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Parse query params
+        var queryParams = Navigation.Uri.Split('?')[1].Split('&');
+        foreach (var param in queryParams)
+        {
+            var keyValue = param.Split('=');
+            if (keyValue[0] == "username")
+                username = keyValue[1];
+            else if (keyValue[0] == "userID")
+                userID = int.Parse(keyValue[1]);
+        }
+
+        // Load today's reminders
+        await LoadTodayReminders();
+        await DeleteOldReminders();
+    }
+
+    private async Task LoadTodayReminders()
+    {
+        try
+        {
+            var meds = await MedicationService.ReadMedByUserID(userID);
+            var reminders = new List<TodayReminderDisplay>();
+
+            foreach (var med in meds)
+            {
+                var medReminders = await ReminderService.ReadRemByDay(med.ID);
+                foreach (var rem in medReminders)
+                {
+                    reminders.Add(new TodayReminderDisplay
+                        {
+                            ReminderID = rem.ID,
+                            Time = rem.time,
+                            MedicationName = med.name,
+                            Dose = med.dose
+                        });
+                }
+            }
+
+            todayReminders = reminders.OrderBy(r => r.Time).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading reminders: {ex.Message}");
+            todayReminders = new(); // fallback to empty list
+        }
+    }
+
+    private void MarkAsTaken(TodayReminderDisplay reminder, bool isChecked)
+    {
+        reminder.Taken = isChecked;
+        // Optional: Store to local storage or backend if persistence needed
+    }
+
+    private async Task DeleteOldReminders()
+    {
+        try
+        {
+            var reminders = await ReminderService.ReadRemByUserID(userID);
+            foreach (var rem in reminders)
+            {
+                if (rem.frequency.Date < DateTime.Today)
+                {
+                    await ReminderService.DeleteReminder(rem.ID);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting old reminders: {ex.Message}");
+        }
+    }
+
+    // Display model
+    private class TodayReminderDisplay
+    {
+        public int ReminderID { get; set; }
+        public TimeSpan Time { get; set; }
+        public string MedicationName { get; set; }
+        public float Dose { get; set; }
+        public bool Taken { get; set; } = false; // default unchecked
+    }
+
+
+    // Navigate to the account page
+    private void GoToAccount()
+    {
+        Navigation.NavigateTo($"/account?username={username}&userID={userID}");
+    }
+
+    // Navigate to the upcoming medication page
+    private void GoToUpcomingMedication()
+    {
+        Navigation.NavigateTo($"/upcoming-medication?username={username}&userID={userID}");
+    }
+
+    // Navigate to the set reminder page
+    private void GoToSetReminder()
+    {
+        Navigation.NavigateTo($"/set-reminder?username={username}&userID={userID}");
+    }
+
+    // Navigate to the add medication page
+    private void GoToAddMedication()
+    {
+        Navigation.NavigateTo($"/add-medication?username={username}&userID={userID}");
+    }
+
+    // Navigate to the manage page
+    private void GoToManage()
+    {
+        Navigation.NavigateTo($"/manage?username={username}&userID={userID}");
+    }
+}

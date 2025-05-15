@@ -1,0 +1,488 @@
+.container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.input-box {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.primary-button, .secondary-button {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.primary-button {
+    background-color: #4682B4;
+    color: white;
+}
+
+.secondary-button {
+    background-color: #B0C4DE;
+    color: black;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: gray;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #007bff;
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+}
+
+.home-container {
+    padding: 16px;
+}
+
+.header {
+    text-align: center;
+}
+
+.account-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    display: block;
+    margin: auto;
+}
+
+.reminder-card {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f0f0f0;
+}
+
+    .reminder-card.taken {
+        background-color: #e0e0ff;
+    }
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.nav-btn {
+    font-size: 16px;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+/************************************************/
+
+/* Container for the page */
+.home-container {
+    padding: 16px;
+}
+
+/* Header styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+/* Account Info (icon and label) */
+.account-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.account-icon {
+    font-size: 2rem;
+    color: #4682B4; /* Color for the icon */
+}
+
+.account-label {
+    font-size: 14px;
+    color: gray;
+}
+
+/* Username Section aligned to the right */
+.username-section {
+    text-align: right;
+}
+
+    /* Username text */
+    .username-section h2 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .username-section h3 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+/* Date Section styling */
+.date-section {
+    text-align: center; /* Centers the date */
+    margin-bottom: 20px;
+}
+
+/* Date text */
+.date-text {
+    font-size: 18px;
+}
+
+/* Check Upcoming Medication button centered at the very bottom of the screen */
+.check-upcoming-btn-container {
+    position: fixed;
+    bottom: 80px; /* Adjusted to be above the bottom navigation */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.primary-button {
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+/* Individual navigation buttons */
+.nav-btn {
+    font-size: 16px;
+    text-align: center;
+    background: none;
+    border: none;
+}
+
+.reminders-container {
+    padding: 1rem;
+}
+
+.reminder-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e6f7ff;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.reminder-info p {
+    margin: 0;
+}
+
+.account-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.or-text {
+    text-align: center;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.form-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.cancel-button, .update-button {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+}
+
+.cancel-button {
+    background-color: #ddd;
+    color: #333;
+}
+
+.update-button {
+    background-color: #4682B4;
+    color: white;
+}
+
+
+.textarea, select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.input-half {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.inline-row {
+    display: flex;
+    justify-content: flex-start; /* aligns children to the left */
+    gap: 4%;
+    width: 100%; /* or a smaller value like 90% or 80% */
+}
+
+.textarea {
+    height: 100px;
+    resize: none;
+}
+
+.save-button {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+}
+
+.save-button {
+    background-color: #bde0fe;
+    color: #000;
+}
+
+.dropdown-header {
+    background-color: #4682B4;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.reminder-card {
+    background-color: #f0f8ff;
+    margin: 8px auto; /* Reduced margin, centered */
+    padding: 8px 12px; /* Smaller padding */
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    max-width: 350px; /* Shrink card width */
+    width: 90%; /* Responsive sizing */
+}
+
+.reminder-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Left content alignment stays */
+.reminder-left {
+    text-align: left;
+}
+
+/* Smaller text and tighter spacing */
+.reminder-time {
+    font-weight: bold;
+    font-size: 16px; /* Down from 18px */
+    margin-bottom: 2px;
+}
+
+.reminder-med {
+    font-size: 14px; /* Down from 16px */
+    margin-top: 3px;
+}
+
+.reminder-dose {
+    font-size: 12px; /* Down from 14px */
+    color: #555;
+}
+
+.upcoming-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.day-group {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.day-header {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.no-reminders {
+    font-size: 16px;
+    color: gray;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.set-reminder-container {
+    padding: 16px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.time-picker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.primary-button, .secondary-button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.set-reminder-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.days-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.day-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #eee;
+}
+
+    .day-button.selected {
+        background-color: #5b9bd5;
+        color: white;
+    }
+
+.time-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.add-time {
+    margin-top: 10px;
+    background-color: #c5e1a5;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+}
